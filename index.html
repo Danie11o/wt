@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Waga</title>
+<meta name="description" content="Prywatny dziennik wagi ciała.">
+<meta name="theme-color" content="#0b0f14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Waga">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <img class="logo" src="icons/icon-192.png" alt="">
+  <div class="topbar-txt">
+    <h1>Waga</h1>
+    <p id="topSub">Brak wpisów</p>
+  </div>
+  <div class="topbar-now">
+    <span id="topKg">—</span>
+    <small>ostatnia</small>
+  </div>
+</header>
+
+<main>
+
+  <!-- ---------- dodawanie ---------- -->
+  <section class="card add">
+    <div class="add-row">
+      <div class="field">
+        <input id="kg" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+               placeholder="0,0" autocomplete="off" autocorrect="off" spellcheck="false"
+               enterkeyhint="done" maxlength="6" aria-label="Waga w kilogramach">
+        <span class="unit">kg</span>
+      </div>
+      <button id="addBtn" class="btn-primary">Dodaj</button>
+    </div>
+    <details class="when">
+      <summary>Inna data lub godzina</summary>
+      <div class="when-row">
+        <label>Data <input id="date" type="date"></label>
+        <label>Godzina <input id="time" type="time"></label>
+        <button id="nowBtn" class="btn-ghost" type="button">Teraz</button>
+      </div>
+    </details>
+    <p id="addMsg" class="msg" hidden></p>
+  </section>
+
+  <!-- ---------- zakładki ---------- -->
+  <nav class="tabs" role="tablist">
+    <button class="tab is-active" data-tab="week" role="tab">Tydzień</button>
+    <button class="tab" data-tab="all" role="tab">Ogólnie</button>
+    <button class="tab" data-tab="hist" role="tab">Historia</button>
+  </nav>
+
+  <!-- ---------- widok: tydzień ---------- -->
+  <section id="panel-week" class="panel">
+    <div class="card">
+      <div class="weeknav">
+        <button id="prevWeek" class="btn-nav" aria-label="Poprzedni tydzień">‹</button>
+        <div class="weeknav-mid">
+          <strong id="weekLabel">—</strong>
+          <small id="weekTag"></small>
+        </div>
+        <button id="nextWeek" class="btn-nav" aria-label="Następny tydzień">›</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <small>Średnia tyg.</small>
+          <strong id="wAvg">—</strong>
+        </div>
+        <div class="stat">
+          <small>Ważeń</small>
+          <strong id="wCount">0</strong>
+        </div>
+        <div class="stat">
+          <small>vs poprzedni</small>
+          <strong id="wDelta">—</strong>
+        </div>
+      </div>
+
+      <div id="weekChart" class="chart"></div>
+      <p id="weekNote" class="note"></p>
+    </div>
+
+    <div class="card">
+      <h2>Ważenia w tym tygodniu</h2>
+      <ul id="weekList" class="list"></ul>
+    </div>
+  </section>
+
+  <!-- ---------- widok: ogólnie ---------- -->
+  <section id="panel-all" class="panel" hidden>
+    <div class="card">
+      <h2>Średnie tygodniowe</h2>
+      <div id="allChart" class="chart"></div>
+      <p id="allSummary" class="summary"></p>
+    </div>
+
+    <div class="card">
+      <div class="stats stats-4">
+        <div class="stat"><small>Tygodni</small><strong id="sWeeks">0</strong></div>
+        <div class="stat"><small>Zmiana</small><strong id="sChange">—</strong></div>
+        <div class="stat"><small>kg/tydz</small><strong id="sRate">—</strong></div>
+        <div class="stat"><small>Ważeń</small><strong id="sTotal">0</strong></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><small>Najniższa</small><strong id="sMin">—</strong></div>
+        <div class="stat"><small>Najwyższa</small><strong id="sMax">—</strong></div>
+        <div class="stat"><small>Zakres</small><strong id="sSpan">—</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- widok: historia ---------- -->
+  <section id="panel-hist" class="panel" hidden>
+    <div class="card">
+      <h2>Tygodnie</h2>
+      <div id="histList" class="hist"></div>
+      <p class="note">Dotknij tygodnia, żeby zobaczyć w nim poszczególne ważenia.</p>
+    </div>
+
+    <div class="card">
+      <h2>Kopia zapasowa</h2>
+      <p class="note">Dane siedzą tylko w tej przeglądarce. Wyczyszczenie danych strony je kasuje — rób kopię co jakiś czas.</p>
+      <div class="backup">
+        <button id="exportBtn" class="btn-ghost">Pobierz kopię</button>
+        <button id="importBtn" class="btn-ghost">Wczytaj kopię</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
+      <p id="backupMsg" class="msg" hidden></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">Dane zapisane lokalnie na tym urządzeniu · <span id="ver"></span></footer>
+
+<script src="app.js"></script>
+</body>
+</html>
