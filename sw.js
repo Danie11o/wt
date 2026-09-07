@@ -1,5 +1,5 @@
 /* Offline cache. Po zmianie plikow podbij CACHE, zeby telefon pobral nowa wersje. */
-const CACHE = 'waga-v1';
+const CACHE = 'waga-v2';
 const ASSETS = [
   './',
   './index.html',

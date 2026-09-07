@@ -1,7 +1,7 @@
 /* Waga — prywatny dziennik wagi ciała. Dane trzymane w localStorage. */
 'use strict';
 
-const VERSION = 'v1.0';
+const VERSION = 'v1.1';
 const KEY = 'waga.entries.v1';
 
 const DAYS_SHORT = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd'];

@@ -16,6 +16,8 @@
 }
 
 *{box-sizing:border-box}
+/* atrybut hidden musi wygrywac z regulami ponizej (np. .panel{display:grid}) */
+[hidden]{display:none !important}
 html,body{margin:0}
 html{-webkit-text-size-adjust:100%}
 body{
