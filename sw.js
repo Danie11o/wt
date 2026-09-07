@@ -3,8 +3,8 @@ const CACHE = 'waga-v2';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css',
-  './app.js',
+  './styles.css?v=1.1',
+  './app.js?v=1.1',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',

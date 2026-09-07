@@ -54,10 +54,14 @@ Rób to raz na jakiś czas.
 
 ## Aktualizacja
 
-Po podmianie plików w repo podbij numer w `sw.js`:
+Po zmianie plików podbij wersję w trzech miejscach — inaczej telefon jeszcze
+przez chwilę poda starą stronę z pamięci:
 
-```js
-const CACHE = 'waga-v2';
-```
+| plik | co zmienić |
+|---|---|
+| `index.html` | `styles.css?v=1.1` i `app.js?v=1.1` → `?v=1.2` |
+| `sw.js` | `CACHE = 'waga-v2'` → `'waga-v3'` oraz te same `?v=` na liście `ASSETS` |
+| `app.js` | `VERSION = 'v1.1'` → `'v1.2'` |
 
-Inaczej telefon może jeszcze chwilę serwować starą wersję z pamięci.
+Numer z `app.js` widać w stopce strony — po to tam jest, żeby jednym rzutem oka
+sprawdzić, czy telefon złapał już nową wersję.
